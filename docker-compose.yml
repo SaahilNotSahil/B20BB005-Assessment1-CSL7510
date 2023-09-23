@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - b20bb005
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql
+    networks:
+      - b20bb005
+
+volumes:
+  pg_data:
+
+networks:
+  b20bb005:
+    driver: bridge
